@@ -191,3 +191,72 @@ body {
     .scroll-reveal { transition: none; }
     .hero-stage .layer-code { transition: none; }
 }
+
+/* ===== Mobile bottom navigation (tab bar) ===== */
+.bottom-nav {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    /* sembunyikan link about/learn/portfolio/blog/contact dari header */
+    .navbar nav > div:first-of-type {
+        display: none;
+    }
+
+    /* ruang di bawah halaman supaya footer tidak tertutup tab bar */
+    body {
+        padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 60;
+        background-color: #0a0a0a;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+        padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .bottom-link {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 2px 6px;
+        position: relative;
+        color: #ffffff;
+        opacity: 0.55;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: opacity 0.2s ease;
+    }
+
+    .bottom-link svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .bottom-link.active {
+        opacity: 1;
+    }
+
+    /* garis indikator di atas tab aktif */
+    .bottom-link.active::before {
+        content: '';
+        position: absolute;
+        top: -7px;
+        left: 25%;
+        right: 25%;
+        height: 3px;
+        border-radius: 0 0 3px 3px;
+        background: #ffffff;
+    }
+}
