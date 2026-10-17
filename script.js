@@ -107,3 +107,30 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
     document.body.appendChild(nav);
 })();
+
+// ===== Navbar memudar saat scroll ke bawah =====
+(function () {
+    const header = document.querySelector('.navbar');
+    if (!header) return;
+
+    const FADE_DISTANCE = 300; // jarak scroll (px) sampai navbar hilang total
+    let ticking = false;
+
+    function updateNavbar() {
+        const y = window.scrollY || 0;
+        const opacity = Math.max(0, 1 - y / FADE_DISTANCE);
+        header.style.opacity = opacity;
+        // saat hampir transparan, navbar tidak menghalangi klik di konten
+        header.style.pointerEvents = opacity < 0.1 ? 'none' : 'auto';
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateNavbar);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    updateNavbar();
+})();
